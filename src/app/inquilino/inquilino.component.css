@@ -1,0 +1,23 @@
+.content {
+    /* margin-top: 14px; */
+    margin-bottom: 64px;
+}
+
+.valor {
+    position: absolute;
+    /* right:  */
+}
+
+.add-fab {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+}
+
+.fit-screen {
+    width: 100%;
+}
+
+.btn-reclamar {
+    float: left;
+}

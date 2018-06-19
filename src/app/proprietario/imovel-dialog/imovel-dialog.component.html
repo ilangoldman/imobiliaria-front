@@ -1,0 +1,67 @@
+<h3 mat-dialog-title>{{action}} Imovel</h3>
+<div mat-dialog-content>
+  <section class="mat-typography">
+
+    <form [formGroup] = "i">
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <mat-label>Aluguel</mat-label>
+        <input matInput formControlName="aluguel" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <mat-label>Numero de Quartos</mat-label>
+        <input matInput formControlName="quarto" required>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="fit-screen">
+        <mat-label>Numero de Banheiros</mat-label>
+        <input matInput formControlName="banheiro" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <mat-label>Area (m2)</mat-label>
+        <input matInput formControlName="area" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <mat-label>CEP</mat-label>
+        <input matInput formControlName="cep" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <mat-label>Rua</mat-label>
+        <input matInput formControlName="rua" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <mat-label>Bairro</mat-label>
+        <input matInput formControlName="bairro" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <mat-label>Cidade</mat-label>
+        <input matInput formControlName="cidade" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="estado" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <mat-label>Pais</mat-label>
+        <input matInput formControlName="pais" required>
+      </mat-form-field>
+      
+    </form>
+
+
+  </section>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="">Cancelar</button>
+  <button mat-raised-button color="accent" (click)="dialogAction();" cdkFocusInitial [disabled]="i.invalid">{{action}}</button>
+</div>
+
+

@@ -1,0 +1,67 @@
+.autocomplete {
+    width: 100%;
+    margin: 14px;
+}
+
+.main-content {
+    margin-top: -110px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* .toolbar {
+    display: flex !important;
+    width: 100vw;
+    justify-content: space-evenly;
+} */
+
+.valor {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+mat-card img{
+  object-fit: cover;
+  height: 250px;
+}
+
+.show {
+    margin-top: 0px;
+}
+
+.show-desktop {
+    display: none;
+}
+
+@media only screen and (min-width: 600px) {
+    .main-content {
+        margin-top: 0px;
+        display: flex !important;
+        justify-content: space-evenly;
+    }
+    
+    .anuncio {
+        width: 200px;
+        display: inline-block;
+    }
+
+    .content {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+    
+    .show-mobile {
+        display: none;
+    }
+
+    .show-desktop {
+        margin-top: -15px;
+        display: initial;
+    }
+
+    .autocomplete {
+        width: 50%;
+    }
+
+}

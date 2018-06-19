@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+
+  <mat-toolbar-row class="show-desktop">
+  
+    <mat-button-toggle-group #tipoD="matButtonToggleGroup" name="tipo" aria-label="Tipo" class="align-center" (change)="filterImovel(tipoD.value)">
+      <mat-button-toggle checked="true" value="tudo">Tudo</mat-button-toggle>
+      <mat-button-toggle value="apartamento">Apartamento</mat-button-toggle>
+      <mat-button-toggle value="casa">Casa</mat-button-toggle>
+    </mat-button-toggle-group>
+  
+    <mat-form-field class="align-center autocomplete">
+      <input matInput (keyup)="filterEndereco($event.target.value)" placeholder="Escolha por cidade ou bairro?">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  
+  </mat-toolbar-row>
+
+  <mat-toolbar-row class="show-mobile">
+
+    <mat-button-toggle-group #tipoM="matButtonToggleGroup" name="tipo" aria-label="Tipo" class="align-center" (change)="filterImovel(tipoM.value)">
+      <mat-button-toggle checked="true" value="tudo" >Tudo</mat-button-toggle>
+      <mat-button-toggle value="apartamento">Apartamento</mat-button-toggle>
+      <mat-button-toggle value="casa">Casa</mat-button-toggle>
+    </mat-button-toggle-group>
+  
+  </mat-toolbar-row>
+
+  <mat-toolbar-row class="show-mobile">
+
+    <mat-form-field class="align-center autocomplete">
+      <input matInput (keyup)="filterEndereco($event.target.value)" placeholder="Escolha por cidade ou bairro?">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+<mat-card class="mat-elevation-z12 main-content" [ngClass] = "{ 'show': nav.searchBar == true }">
+  <mat-card-content class="content">
+    <mat-card *ngFor="let i of filter; let fi = index;" class="margin anuncio">
+      <img mat-card-image src="{{i.fotos[getFoto(fi)]}}" (click)="nextFoto(fi);">
+      <mat-card-content>
+        <mat-card class="valor" color="primary">
+          {{i.aluguel | currencyFormat: 2}}
+        </mat-card>
+        <p>{{i.endereco.rua}}, {{i.endereco.bairro}}</p>
+        <p>{{i.endereco.cidade}}</p>
+      </mat-card-content>
+      <mat-card-actions class="align-center">
+        <button mat-raised-button (click)="openDetalhes(i)">Mais Detalhes</button>
+        <button mat-raised-button color="accent" (click)="openAlugar(i)">Alugar</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,91 @@
+<mat-tab-group>
+  <mat-tab label="Imoveis">
+    <div class="content">
+      <mat-list>
+        <mat-list-item *ngFor="let i of user.user.imovel; let last = last">
+          
+          <p matLine (click)="openRelatorio(i.id)">{{i.endereco.rua}}, {{i.endereco.bairro}}</p>
+          <p matLine (click)="openRelatorio(i.id)">{{i.status}}</p>
+          <p matLine (click)="openRelatorio(i.id)">{{i.aluguel | currencyFormat : 2}}</p>
+
+
+          <!-- <div> -->
+
+            <button mat-icon-button color="primary" (click)="openImovel(i.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon (click)="imovelService.deleteImovel(i.id)">delete</mat-icon>
+            </button>
+          <!-- </div> -->
+          
+          <mat-divider *ngIf="!last"></mat-divider>
+        </mat-list-item>
+      </mat-list>
+
+      <button mat-fab class="add-fab" (click)="openImovel()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </mat-tab>
+  <mat-tab label="Reclamações">
+    <div class="content">
+      <mat-list *ngFor="let i of user.user.imovel; let last = last">
+        <h3 mat-subheader>{{i.endereco.rua}}, {{i.endereco.bairro}}</h3>
+        <mat-list-item *ngFor="let r of i.reclamacao; let last = last">
+          <p matLine>{{r.reclamacao}}</p>
+          <p matLine>{{r.resposta}}</p>
+          <button mat-icon-button color="accent" *ngIf="!r.resposta" (click)="openResposta(r)">
+            <mat-icon>reply</mat-icon>
+          </button>
+          <mat-divider *ngIf="!last"></mat-divider>
+        </mat-list-item>
+        <mat-divider *ngIf="!last"></mat-divider>
+      </mat-list>
+    </div>
+  </mat-tab>
+  <mat-tab label="Configuração">
+    <div class="content">
+
+      <mat-card class="margin">
+        <mat-card-content>
+
+          <mat-form-field appearance="outline" class="fit-screen">
+            <mat-label>Nome Completo</mat-label>            
+            <input matInput #nome required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="fit-screen">
+            <mat-label>CPF</mat-label>            
+            <input matInput #cpf required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="fit-screen">
+            <mat-label>RG</mat-label>
+            <input matInput #rg required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="fit-screen">
+            <mat-label>Telefone</mat-label>
+            <input matInput #tel required>
+          </mat-form-field>
+          
+        </mat-card-content>
+        
+        <mat-card-actions>
+          <button mat-raised-button class="fit-screen" color="primary" (click)="user.updateUser(nome.value,cpf.value,rg.value,tel.value)">
+            <mat-icon>save</mat-icon>
+            Salvar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      <br>
+      <button mat-button class="fit-screen" (click)="user.logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        Sair
+      </button>
+      <br><br>
+      <button mat-button class="margin fit-screen" color="warn" (click)="user.deleteUser()">
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+    </div>
+  </mat-tab>
+</mat-tab-group>

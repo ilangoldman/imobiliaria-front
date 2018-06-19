@@ -1,0 +1,31 @@
+<mat-card class="margin">
+  <mat-card-content>
+
+
+    <div class="align-center">
+
+      <h1>Login</h1>
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <input matInput #email placeholder="Email" (focus)="clearErro()" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fit-screen">
+        <input matInput #pwd type="password" placeholder="Senha" (focus)="clearErro()" required>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button id="login-button" (click)="login(email.value,pwd.value)" color="primary" [ngClass]="loginStatus"
+        class="mat-elevation-z12 login-button fit-screen"></button>
+
+      <!-- <br><br> -->
+    </div>
+
+    
+  </mat-card-content>
+
+  <div class="footer">
+    <button mat-button class="btn-cadastro" (click)="goto('cadastro')">
+      Não tem acesso ainda? Cadastre-se!
+    </button>
+  </div>
+</mat-card>

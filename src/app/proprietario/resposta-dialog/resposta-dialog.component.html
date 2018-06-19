@@ -1,0 +1,13 @@
+<h3 mat-dialog-title>Responder Reclamação</h3>
+<div mat-dialog-content>
+  <section class="mat-typography">
+    <p>{{reclamacao.reclamacao}}</p>
+    <mat-form-field class="fit-screen">
+      <textarea matInput #resposta placeholder="Resposta" required></textarea>
+  </mat-form-field>
+  </section>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="">Cancelar</button>
+  <button mat-raised-button color="accent" (click)="resposta(resposta.value);" cdkFocusInitial>Responder</button>
+</div>

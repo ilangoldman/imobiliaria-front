@@ -1,0 +1,59 @@
+<mat-card class="margin">
+  <mat-card-content>
+
+
+    <div class="align-center">
+
+      <h1>Cadastro</h1>
+
+      <form [formGroup] = "c">
+
+        <mat-form-field  appearance="outline" class="fit-screen">
+          <input matInput formControlName="email" #email placeholder="Email" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="fit-screen">
+          <input matInput formControlName="pwd" #pwd type="password" placeholder="Senha" required>
+        </mat-form-field>
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+
+        <mat-button-toggle-group #tipo="matButtonToggleGroup" name="tipo" aria-label="Tipo" class="align-center" (change)="changeTipo(tipo.value)">
+          <mat-button-toggle checked="true" value="1">Inquilino</mat-button-toggle>
+          <mat-button-toggle value="2">Proprietario</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <br>
+
+        <mat-form-field appearance="outline" class="fit-screen">
+          <mat-label>Nome Completo</mat-label>
+          <input matInput formControlName="nome" #nome required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="fit-screen">
+          <mat-label>CPF</mat-label>
+          <input matInput formControlName="cpf" #cpf required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="fit-screen">
+          <mat-label>RG</mat-label>
+          <input matInput formControlName="rg" #rg required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="fit-screen">
+          <mat-label>Telefone</mat-label>
+          <input matInput formControlName="tel" #tel required>
+        </mat-form-field>
+      </form>
+
+      <button mat-raised-button id="login-button" (click)="cadastro()" color="primary" class="mat-elevation-z12 login-button fit-screen" [disabled]="c.invalid">Cadastrar</button>
+
+    </div>
+
+
+  </mat-card-content>
+
+  <div class="footer">
+    <button mat-button class="btn-login" (click)="goto('login')">
+      Já possui uma conta? Entre agora!
+    </button>
+  </div>
+</mat-card>

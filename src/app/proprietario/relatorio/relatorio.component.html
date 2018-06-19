@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Relatorio:</h2>
+<div mat-dialog-content>
+  <section class="mat-typography">
+    <h3>Imovel: {{imovel.status}}</h3>
+
+    <h4>Caracteristicas:</h4>
+    <p>Aluguel: {{imovel.aluguel | currencyFormat : 2}}</p>
+    <p>Quartos: {{imovel.quarto}}</p>
+    <p>Banheiros: {{imovel.banheiro}}</p>
+    <p>Area: {{imovel.area}}</p>
+    
+    <h4>Localização:</h4>
+    <p>CEP: {{imovel.endereco.cep}}</p>
+    <p>Rua: {{imovel.endereco.rua}}</p>
+    <p>Bairro: {{imovel.endereco.bairro}}</p>
+    <p>Cidade: {{imovel.endereco.cidade}}</p>
+    <p>Pais: {{imovel.endereco.pais}}</p>
+
+    <p>Número de Reclamações: {{imovel.reclamacao.length}}</p>
+  </section>  
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="">Fechar</button>
+</div>

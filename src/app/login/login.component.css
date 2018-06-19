@@ -1,0 +1,27 @@
+#login-button::after {
+    content: 'Entrar';
+}
+
+#login-button.erro::after {
+    content: 'Usuário ou Senha Inválidos!'
+}
+
+.fit-screen {
+    width: 80vw;    
+}
+
+.footer {
+    /* position: absolute; */
+    /* bottom: 0; */
+    /* left: 0; */
+    /* right: 0; */
+    margin-top: 50px;
+}
+
+.btn-cadastro {
+    width: 100%;
+}
+
+.erro {
+    background-color: rgba(230, 8, 8, 0.671);
+}
