@@ -51,12 +51,27 @@ export class HomeComponent implements OnInit {
   }
 
   getImovel() {
-    this.imovel = this.imovelService.getImovel();
-    this.imovel.forEach(i => {
-      this.fotos.push(0);
-    });
-    this.filter = this.imovel;
-    console.log(this.filter);
+    this.imovelService.getImovel()
+      .subscribe(imovel => {
+        this.imovel = imovel;
+        console.log(imovel);
+        this.imovel.forEach(element =>{
+          element.fotos = [
+              "http://www.imovelweb.com.br/noticias/wp-content/uploads/2017/10/corretagem.jpg",
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwzMq_v4J_SVvV92FdCX_I7XPxVzewlis6W_RWBm3_-CfngsRY",
+              "https://www.foxterciaimobiliaria.com.br/noticias/wp-content/uploads/2016/10/imoveis-internet.jpg",
+              "https://mullerimoveisrj.com.br/wp-content/uploads/2017/06/DUPLA-VENDA.jpg",
+              "http://www.2rirp.com.br/uploads/post/image/36/content_big_locacao.png",
+              "https://queroficarrico.com/blog/wp-content/uploads/2017/06/como_investir_em_imoveis.jpg"
+            ];
+        })
+        this.imovel.forEach(i => {
+
+          this.fotos.push(0);
+        });
+        this.filter = this.imovel;
+        console.log(this.filter);
+      });
 
     // console.log(this.imovel[0].aluguel);
   }

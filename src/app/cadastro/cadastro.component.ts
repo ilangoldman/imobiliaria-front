@@ -50,9 +50,11 @@ export class CadastroComponent implements OnInit {
     json.tipo = this.tipo;
     this.auth.signup(this.c.value)
       .then((res) => {
-        // console.log('then');
-        this.user.login();
-        this.router.navigate([res]);
+        console.log(res);
+        if(res){
+          alert("Cliente criado com sucesso!");
+          this.router.navigate(["login"]);
+        }
       }).catch((err) => {
         console.log(err);
       });

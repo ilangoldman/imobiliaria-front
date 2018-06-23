@@ -16,7 +16,7 @@ export class RelatorioComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private user: UserService
   ) {
-    this.imovel = this.user.user.imovel.filter((x) => (x.id === data.id))[0];
+    this.imovel = this.user.imovelCliente.filter((x) => (x.id_imovel === data.id))[0];
     // console.log(this.imovel);
   }
 

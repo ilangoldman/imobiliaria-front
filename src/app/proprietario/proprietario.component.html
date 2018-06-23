@@ -2,20 +2,20 @@
   <mat-tab label="Imoveis">
     <div class="content">
       <mat-list>
-        <mat-list-item *ngFor="let i of user.user.imovel; let last = last">
+        <mat-list-item *ngFor="let i of user.imovelCliente; let last = last">
           
-          <p matLine (click)="openRelatorio(i.id)">{{i.endereco.rua}}, {{i.endereco.bairro}}</p>
-          <p matLine (click)="openRelatorio(i.id)">{{i.status}}</p>
-          <p matLine (click)="openRelatorio(i.id)">{{i.aluguel | currencyFormat : 2}}</p>
+          <p matLine (click)="openRelatorio(i.id_imovel)">{{i.rua}}, {{i.bairro}}</p>
+          <p matLine (click)="openRelatorio(i.id_imovel)">{{i.status_aluguel == 1 ? "Disponível" : "Alugado"}}</p>
+          <p matLine (click)="openRelatorio(i.id_imovel)">{{i.vl_aluguel | currencyFormat : 2}}</p>
 
 
           <!-- <div> -->
 
-            <button mat-icon-button color="primary" (click)="openImovel(i.id)">
+            <button mat-icon-button color="primary" (click)="openImovel(i.id_imovel)">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn">
-              <mat-icon (click)="imovelService.deleteImovel(i.id)">delete</mat-icon>
+              <mat-icon (click)="deletarImovel(i.id_imovel)">delete</mat-icon>
             </button>
           <!-- </div> -->
           
@@ -30,9 +30,9 @@
   </mat-tab>
   <mat-tab label="Reclamações">
     <div class="content">
-      <mat-list *ngFor="let i of user.user.imovel; let last = last">
-        <h3 mat-subheader>{{i.endereco.rua}}, {{i.endereco.bairro}}</h3>
-        <mat-list-item *ngFor="let r of i.reclamacao; let last = last">
+      <mat-list *ngFor="let i of user.imovelCliente; let last = last">
+        <h3 mat-subheader>{{i.rua}}, {{i.bairro}}</h3>
+        <mat-list-item *ngFor="let r of i.reclamacoes; let last = last">
           <p matLine>{{r.reclamacao}}</p>
           <p matLine>{{r.resposta}}</p>
           <button mat-icon-button color="accent" *ngIf="!r.resposta" (click)="openResposta(r)">
@@ -44,10 +44,10 @@
       </mat-list>
     </div>
   </mat-tab>
-  <mat-tab label="Configuração">
+  <mat-tab label="Sessão">
     <div class="content">
 
-      <mat-card class="margin">
+      <!-- <mat-card class="margin">
         <mat-card-content>
 
           <mat-form-field appearance="outline" class="fit-screen">
@@ -75,12 +75,12 @@
             Salvar
           </button>
         </mat-card-actions>
-      </mat-card>
+      </mat-card> -->
       <br>
-      <button mat-button class="fit-screen" (click)="user.logout()">
+      <!-- <button mat-button class="fit-screen" (click)="user.logout()">
         <mat-icon>exit_to_app</mat-icon>
         Sair
-      </button>
+      </button> -->
       <br><br>
       <button mat-button class="margin fit-screen" color="warn" (click)="user.deleteUser()">
         <mat-icon>delete</mat-icon>

@@ -13,7 +13,7 @@ import { AuthService } from '../_service/auth.service';
   styleUrls: ['./imovel.component.css']
 })
 export class ImovelComponent implements OnInit {
-  private imovel: Imovel;
+  private imovel: any;
 
   constructor(
     public dialogRef: MatDialogRef<ImovelComponent>,
@@ -34,7 +34,11 @@ export class ImovelComponent implements OnInit {
       this.dialogRef.close();
       this.router.navigate(['login']);
     } else {
-      this.imovelService.alugarImovel(this.user.user.id, this.imovel);
+      this.imovelService.alugarImovel(this.imovel.id_imovel).then((val) =>{
+        if(val){
+          this.router.navigate(['inquilino']);
+        }
+      });
       this.dialogRef.close();
     }
   }

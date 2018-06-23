@@ -13,11 +13,19 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 })
 export class ProprietarioComponent implements OnInit {
 
+  public ImovelCliente:any;
+
   constructor(
     private user: UserService,
     private imovelService: ImovelService,
     public dialog: MatDialog
-  ) { }
+  ) { 
+    this.imovelService.getImovelUser().toPromise()
+    .then((val) =>{
+      this.ImovelCliente = val;
+      this.user.imovelCliente = val;
+    });
+  }
 
   ngOnInit() {
   }
@@ -53,6 +61,15 @@ export class ProprietarioComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       // console.log('The dialog was closed');
+    });
+  }
+
+  deletarImovel(id){
+    this.imovelService.deleteImovel(id).then((val) =>{
+      if(val){
+        alert("Imovel deletado com sucesso!");
+        this.user.UpdateImovelUser();
+      }
     });
   }
 

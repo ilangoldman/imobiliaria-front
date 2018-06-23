@@ -42,10 +42,10 @@
       <img mat-card-image src="{{i.fotos[getFoto(fi)]}}" (click)="nextFoto(fi);">
       <mat-card-content>
         <mat-card class="valor" color="primary">
-          {{i.aluguel | currencyFormat: 2}}
+          {{i.vl_aluguel | currencyFormat: 2}}
         </mat-card>
-        <p>{{i.endereco.rua}}, {{i.endereco.bairro}}</p>
-        <p>{{i.endereco.cidade}}</p>
+        <p>{{i.rua}}, {{i.bairro}}</p>
+        <p>{{i.cidade}}</p>
       </mat-card-content>
       <mat-card-actions class="align-center">
         <button mat-raised-button (click)="openDetalhes(i)">Mais Detalhes</button>

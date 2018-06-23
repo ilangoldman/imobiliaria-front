@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NavigationService } from './navigation.service';
 import { UserService } from './user.service';
 import { Inquilino } from '../_model/inquilino';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,36 +11,33 @@ import { Inquilino } from '../_model/inquilino';
 export class AuthService {
   constructor(
     private router: Router,
-    private nav: NavigationService
+    private nav: NavigationService,
+    private http: HttpClient
   ) { }
 
   login(email, pwd) {
-    let login = null;
-    if (email === 'inquilino' && pwd === 'i') {
-      login = {
-        email: email,
-        tipo: 'inquilino'
-      };
-    } else if (email === 'proprietario' && pwd === 'p') {
-      login = {
-        email: email,
-        tipo: 'proprietario'
-      };
-    }
-
-    return new Promise((resolve, reject) => {
-      if (login !== null) {
-        localStorage.setItem('login', JSON.stringify(login));
-        this.nav.login();
-        resolve(login.tipo);
-      } else {
-        reject();
-      }
-    });
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      },),
+      withCredentials: true
+    };
+    return this.http.post("http://localhost/imobiliaria/autenticacao-api/login",{"email":email,"senha":pwd},httpOptions).toPromise()
+    .then((val:any) => {
+      localStorage.setItem('login', JSON.stringify(val));
+      this.nav.login();
+      return val.tipo;
+    })
   }
 
   signup(cadastro) {
-    const user = {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      },),
+      withCredentials: true
+    };
+    var json = {
       cliente: {
         nome: cadastro.nome,
         cpf: cadastro.cpf,
@@ -50,22 +48,23 @@ export class AuthService {
       user: {
         email: cadastro.email,
         senha: cadastro.pwd,
-        tipo: cadastro.tipo,
+        tipo: (cadastro.tipo == 1 ? '1' : '2'),
       }
     };
-
-    console.log(user);
-    const strU = JSON.stringify(user);
-    return this.login(user.user.email, user.user.senha);
+    console.log(json);
+    return this.http.post("http://localhost/imobiliaria/cliente-api/cliente" ,json,httpOptions).toPromise()
   }
 
   logout() {
-    // this.nav.logout();
-    if (this.isLogged()) {
-      localStorage.removeItem('login');
-    } else {
-      this.router.navigate(['']);
-    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      },),
+      withCredentials: true
+    };
+    this.http.post("http://localhost/imobiliaria/autenticacao-api/logout",{},httpOptions).toPromise().then(() =>{
+      console.log("logout");
+    })
   }
 
   isLogged(): boolean {

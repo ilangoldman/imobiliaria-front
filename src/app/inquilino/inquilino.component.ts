@@ -13,11 +13,18 @@ import { RelatorioComponent } from 'src/app/proprietario/relatorio/relatorio.com
 })
 export class InquilinoComponent implements OnInit {
 
+  public ImovelCliente:any;
+
   constructor(
     private user: UserService,
     private imovelService: ImovelService,
     public dialog: MatDialog
-  ) { }
+  ) { 
+    this.imovelService.getImovelUser().toPromise()
+    .then((val) =>{
+      this.user.imovelCliente = val;
+    });
+  }
 
   ngOnInit() {
   }
@@ -53,6 +60,15 @@ export class InquilinoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       // console.log('The dialog was closed');
+    });
+  }
+  cancelarAluguel(id){
+    this.imovelService.cancelarAluguelImovel(id).then((val) =>{
+      console.log(val);
+      if(val){
+        alert("Aluguel cancelado!");
+        this.user.UpdateImovelUser();
+      }
     });
   }
 }

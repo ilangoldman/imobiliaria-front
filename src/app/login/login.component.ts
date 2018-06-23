@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     private user: UserService
   ) {
     if (auth.isLogged()) {
-      this.router.navigate([this.auth.getTipo()]);
+      //this.router.navigate([this.auth.getTipo()]);
     }
   }
 
@@ -37,14 +37,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(usuario, senha) {
-    // this.authService.emailLogin(usuario, senha)
-    //   .then(this.completeLogin).catch(this.erroLogin);
-
     this.auth.login(usuario, senha)
       .then((res) => {
-        // console.log('then');
         this.user.login();
-        this.router.navigate([res]);
+        this.router.navigate([res == "1" ? "inquilino" : "proprietario"]);
       }).catch((err) => {
         console.log(err);
         this.loginStatus = 'erro';

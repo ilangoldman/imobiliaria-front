@@ -4,19 +4,19 @@
     <h3>Imovel: {{imovel.status}}</h3>
 
     <h4>Caracteristicas:</h4>
-    <p>Aluguel: {{imovel.aluguel | currencyFormat : 2}}</p>
-    <p>Quartos: {{imovel.quarto}}</p>
-    <p>Banheiros: {{imovel.banheiro}}</p>
-    <p>Area: {{imovel.area}}</p>
+    <p>Aluguel: {{imovel.vl_aluguel | currencyFormat : 2}}</p>
+    <p>Quartos: {{imovel.vl_quartos}}</p>
+    <p>Banheiros: {{imovel.vl_banheiros}}</p>
+    <p>Area: {{imovel.vl_area}}</p>
     
     <h4>Localização:</h4>
-    <p>CEP: {{imovel.endereco.cep}}</p>
-    <p>Rua: {{imovel.endereco.rua}}</p>
-    <p>Bairro: {{imovel.endereco.bairro}}</p>
-    <p>Cidade: {{imovel.endereco.cidade}}</p>
-    <p>Pais: {{imovel.endereco.pais}}</p>
+    <p>CEP: {{imovel.cep}}</p>
+    <p>Rua: {{imovel.rua}}</p>
+    <p>Bairro: {{imovel.bairro}}</p>
+    <p>Cidade: {{imovel.cidade}}</p>
+    <p>Pais: {{imovel.pais}}</p>
 
-    <p>Número de Reclamações: {{imovel.reclamacao.length}}</p>
+    <p>Número de Reclamações: {{imovel.reclamacoes.length}}</p>
   </section>  
 </div>
 <div mat-dialog-actions>

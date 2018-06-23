@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUri:"localhost/imobiliaria",
+  apiImoveisUrl:"imoveis-api/"
 };

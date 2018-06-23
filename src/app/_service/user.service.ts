@@ -5,61 +5,32 @@ import { AuthService } from './auth.service';
 import { ImovelService } from './imovel.service';
 import { Router } from '@angular/router';
 import { NavigationService } from './navigation.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private _user;
+  public cliente;
+  public imovelCliente;
 
   constructor(
     private auth: AuthService,
     private imovel: ImovelService,
     private router: Router,
-    private nav: NavigationService
+    private nav: NavigationService,
+    private http: HttpClient
   ) {
     if (auth.isLogged()) {
       this.login();
     }
    }
 
-  public getProprietario(): Proprietario {
-    const strI = `{
-        "id_cliente": "1",
-        "nome": "Teste Nougueira",
-        "cpf": "12345678900",
-        "id_user": "1",
-        "rg": "123456789",
-        "email_contato": "teste@outlook.com",
-        "tel_contato": "11234567890"
-      }`;
-    const i = JSON.parse(strI);
-    const p = new Proprietario(i);
-    p.imovel = this.imovel.getImovelUser(p.id);
-    return p;
-  }
-
-  public getInquilino(): Inquilino {
-    const strI = `{
-        "id_cliente": "1",
-        "nome": "Teste Nougueira",
-        "cpf": "12345678900",
-        "id_user": "1",
-        "rg": "123456789",
-        "email_contato": "teste@outlook.com",
-        "tel_contato": "11234567890"
-      }`;
-    const i = JSON.parse(strI);
-    const inq =  new Inquilino(i);
-    inq.imovel = this.imovel.getImovelUser(inq.id);
-    return inq;
-  }
-
-  public get user() {
-    return this._user;
-  }
-  public set user(value) {
-    this._user = value;
+  public getCliente(){
+    const httpOptions = {
+      withCredentials: true
+    };
+    return this.http.get("http://localhost/imobiliaria/cliente-api/cliente",httpOptions).toPromise();
   }
 
 
@@ -74,21 +45,27 @@ export class UserService {
 
   public deleteUser() {
     // TODO
-    console.log('MORRI MESMO!!!!' + this.user.id);
+    console.log('MORRI MESMO!!!!' + this.cliente.id);
   }
 
   login() {
-    const tipo = this.auth.getTipo();
-    if (tipo === 'inquilino') {
-      this.user = this.getInquilino();
-    } else if (tipo === 'proprietario') {
-      this.user = this.getProprietario();
-    }
+    this.getCliente().then(val =>{
+      this.cliente = val;
+    }).then(err => {
+      console.log(err);
+    });
   }
 
   logout() {
     this.auth.logout();
     this.nav.logout();
     this.router.navigate(['']);
+  }
+
+  UpdateImovelUser(){
+    this.imovel.getImovelUser().toPromise()
+    .then((val) =>{
+      this.imovelCliente = val;
+    });
   }
 }

@@ -11,7 +11,7 @@
     <span class="space"></span>
     <button mat-icon-button class="btn-login" (click)="gotoLogin()">
       <mat-icon *ngIf="!nav.logged">account_circle</mat-icon>
-      <span *ngIf="nav.logged">{{user.user.primeiro_nome}}</span>
+      <span *ngIf="nav.logged && user.cliente">{{user.cliente.nome.split(' ')[0]}}</span>
     </button>
   </mat-toolbar>
   

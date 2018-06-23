@@ -18,6 +18,7 @@ import { ReclamacaoDialogComponent } from './inquilino/reclamacao-dialog/reclama
 import { ImovelDialogComponent } from './proprietario/imovel-dialog/imovel-dialog.component';
 import { AlugarDialogComponent } from './inquilino/alugar-dialog/alugar-dialog.component';
 import { RelatorioComponent } from './proprietario/relatorio/relatorio.component';
+import { Http, HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { RelatorioComponent } from './proprietario/relatorio/relatorio.component
     BrowserAnimationsModule,
     AppRouting,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    HttpModule
   ],
   providers: [],
   entryComponents: [

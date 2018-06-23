@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
 import { ImovelService } from '../../_service/imovel.service';
 import { Imovel } from '../../_model/imovel';
 import { UserService } from '../../_service/user.service';
@@ -12,34 +12,35 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class ImovelDialogComponent implements OnInit {
   private action: String;
-  private imovel: Imovel;
+  private imovel: any;
   private i: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<ImovelDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private user: UserService,
-    private imovelService: ImovelService
+    private imovelService: ImovelService,
+    private dialog: MatDialog
   ) {
     if (data.id !== null) {
       this.action = 'Editar';
-      this.imovel = this.user.user.imovel.filter((x) => (x.id === data.id))[0];
+      this.imovel = this.user.imovelCliente.filter((x) => (x.id_imovel === data.id))[0];
     } else {
       this.action = 'Criar';
       this.imovel = new Imovel(null);
     }
 
     this.i = new FormGroup({
-      aluguel: new FormControl(this.imovel.aluguel, Validators.required),
-      quarto: new FormControl(this.imovel.quarto),
-      banheiro: new FormControl(this.imovel.banheiro),
-      area: new FormControl(this.imovel.area),
-      cep: new FormControl(this.imovel.endereco.cep),
-      rua: new FormControl(this.imovel.endereco.rua),
-      bairro: new FormControl(this.imovel.endereco.bairro),
-      cidade: new FormControl(this.imovel.endereco.cidade),
-      estado: new FormControl(this.imovel.endereco.estado),
-      pais: new FormControl(this.imovel.endereco.pais),
+      vl_aluguel: new FormControl(this.imovel.vl_aluguel, Validators.required),
+      vl_quartos: new FormControl(this.imovel.vl_quartos),
+      vl_banheiros: new FormControl(this.imovel.vl_banheiros),
+      vl_area: new FormControl(this.imovel.vl_area),
+      cep: new FormControl(this.imovel.cep),
+      rua: new FormControl(this.imovel.rua),
+      bairro: new FormControl(this.imovel.bairro),
+      cidade: new FormControl(this.imovel.cidade),
+      estado: new FormControl(this.imovel.estado),
+      pais: new FormControl(this.imovel.pais),
     });
   }
 
@@ -49,13 +50,23 @@ export class ImovelDialogComponent implements OnInit {
   dialogAction() {
     if (this.action === 'Editar') {
       const upImovel = this.i.value;
-      upImovel.resposavel = this.user.user.id;
-      upImovel.id = this.imovel.id;
-      this.imovelService.updateImovel(upImovel);
+      this.imovelService.updateImovel(upImovel,this.imovel.id_imovel)
+      .then((val)=>{
+        console.log(val);
+        if(val == true){
+          alert("Imovel alterado com sucesso!");
+          this.user.UpdateImovelUser();
+        }
+      });
     } else if (this.action === 'Criar') {
       const newImovel = this.i.value;
-      newImovel.resposavel = this.user.user.id;
-      this.imovelService.criarImovel(newImovel);
+      this.imovelService.criarImovel(newImovel).then((val)=>{
+        console.log(val);
+        if(val == true){
+          alert("Imovel criado com sucesso!");
+          this.user.UpdateImovelUser();
+        }
+      });;
     }
     this.dialogRef.close();
   }

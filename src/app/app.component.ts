@@ -14,7 +14,7 @@ import { UserService } from './_service/user.service';
 })
 export class AppComponent {
   title = 'app';
-
+  public cliente;
   constructor(
     private nav: NavigationService,
     private router: Router,
@@ -22,12 +22,19 @@ export class AppComponent {
     private user: UserService
   ) {
     if (auth.isLogged()) {
-      // this.router.navigate([this.auth.getTipo()]);
+      this.router.navigate([this.auth.getTipo() == "1" ? "inquilino" : "proprietario"]);
+      this.user.getCliente().then(val =>{
+        this.cliente = val;
+        this.user.cliente = val;
+      }).catch(err => console.log(err));
     }
+
   }
 
   search() {
     if (this.router.url === '/') {
+      this.router.navigate(['/'+(this.auth.getTipo() == 1 ? "inquilino" : "proprietario")]);
+      console.log(this.user.cliente);
       this.nav.toogleSearch();
     } else {
       this.router.navigate(['']);
@@ -36,6 +43,7 @@ export class AppComponent {
   }
 
   gotoLogin() {
+    this.auth.logout();
     this.nav.closeSearch();
     this.router.navigate(['login']);
   }

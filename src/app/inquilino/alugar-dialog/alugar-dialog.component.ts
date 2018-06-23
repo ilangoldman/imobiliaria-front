@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./alugar-dialog.component.css']
 })
 export class AlugarDialogComponent implements OnInit {
-  private imovel: Imovel;
+  private imovel: any;
 
   constructor(
     public dialogRef: MatDialogRef<AlugarDialogComponent>,
@@ -34,8 +34,16 @@ export class AlugarDialogComponent implements OnInit {
   }
 
   dialogAction() {
-    this.imovelService.alugarImovel(this.user.user.id, this.imovel);
-    this.dialogRef.close();
+    if(this.auth.getTipo() == "1"){
+      this.imovelService.alugarImovel(this.imovel.id_imovel).then((val) =>{
+        if(val){
+          this.router.navigate(['inquilino']);
+        }
+      });
+      this.dialogRef.close();
+    }else{
+      alert("Você precisar ser um inquilino para alugar.")
+    }
   }
 
 }
